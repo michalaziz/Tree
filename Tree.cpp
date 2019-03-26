@@ -31,32 +31,32 @@ void Tree::remove(int i)
 
 int Tree::size()
 {
-    return 7;
+    return -1;
 }
 
 bool Tree::contains(int i)
 {
-    return 0;
+    return -1;
 }
 
 int Tree::root()
 {
-    return 0;
+    return -1;
 }
 
 int Tree::parent(int i)
 {
-    return 0;
+    return -1;
 }
 
 int Tree::left(int i)
 {
-    return 0;
+    return -1;
 }
 
 int Tree::right(int i)
 {
-    return 0;
+    return -1;
 }
 
 void Tree::print()
