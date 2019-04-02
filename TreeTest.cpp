@@ -28,10 +28,11 @@ int main()
     threetree.insert(7);
     threetree.insert(3);
 
-    for (size_t i = -1; i < 1000; i++)
+    for (int i = -1; i < 1000; i++)
     {
         tree.insert(i);
     }
+    cout<<tree.size()<<endl;
 
     ariel::Tree mytree;
 
@@ -56,14 +57,14 @@ int main()
         .CHECK_THROWS(threetree.left(6))
         .CHECK_OK(threetree.print())
 
-        // .CHECK_EQUAL(tree.size(), 1001)
-        // .CHECK_OK(tree.insert(1001))
-        // .CHECK_EQUAL(tree.size(), 1001)
-        // .CHECK_EQUAL(tree.contains(5), true)
-        // .CHECK_OK(tree.remove(5))
-        // .CHECK_EQUAL(tree.contains(5), false)
-        // .CHECK_THROWS(tree.remove(5))
-        // .CHECK_EQUAL(tree.size(), 1000)
+        .CHECK_EQUAL(tree.size(), 1001)
+        .CHECK_OK(tree.insert(1001))
+        .CHECK_EQUAL(tree.size(), 1002)
+        .CHECK_EQUAL(tree.contains(5), true)
+        .CHECK_OK(tree.remove(5))
+        .CHECK_EQUAL(tree.contains(5), false)
+        .CHECK_THROWS(tree.remove(5))
+        .CHECK_EQUAL(tree.size(), 1001)
         // .CHECK_OK(tree.insert(-1))
         // .CHECK_EQUAL(tree.contains(-1), true)
         // .CHECK_OK(tree.remove(-1))
