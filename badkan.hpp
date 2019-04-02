@@ -1,3 +1,4 @@
+
 /**
  * Defines the class TestCase, that represents a test-case 
  * in an automatic testing program.
