@@ -14,7 +14,7 @@ class Tree
 {
   private:
     node *Troot;
-
+void removethetree(node *root);
   public:
     Tree();
     ~Tree();
@@ -22,7 +22,7 @@ class Tree
     node * newNode(int data);
     node*insert(node*,int);
     void insert(int);
-    node*find(int,node);
+    node*find(node*,int);
     node*min(node*);
     node*remove(node*,int);
     void remove(int);

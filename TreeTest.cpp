@@ -43,7 +43,7 @@ int main()
         .CHECK_EQUAL(emptytree.contains(5), true)
         .CHECK_OK(emptytree.remove(5))
         .CHECK_EQUAL(emptytree.contains(5), false)
-        .CHECK_THROWS(emptytree.remove(5))
+        .CHECK_THROWS(emptytree.remove(3))
         .CHECK_EQUAL(emptytree.size(), 0)
 
         .CHECK_EQUAL(threetree.size(), 3)
