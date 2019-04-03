@@ -16,6 +16,7 @@ int main() {
     // constructs an empty tree:
     ariel::Tree emptytree;
     cout << "emptytree: size=" << emptytree.size() << endl; // should print 0
+    emptytree.print();
     
     // constructs an ordered binary tree where:
       // 5 is in the root;
@@ -25,6 +26,8 @@ int main() {
     threetree.insert(5);
     threetree.insert(7);
     threetree.insert(3);
+    threetree.insert(2);
+    threetree.remove(7);
     cout << "threetree: size=" << threetree.size() << " root=" << threetree.root() << endl << "   ";  // size=3, root=5.
     threetree.print();
     cout << endl;
@@ -35,7 +38,10 @@ int main() {
          << threetree.left(5)     // should print 3
          << threetree.right(5)    // should print 7
          << endl;
-    threetree.insert(5);    // should throw an exception, since 5 already exists.
+    //threetree.insert(5);    // should throw an exception, since 5 already exists.
+    // threetree.remove(8);
+    // threetree.insert(3);
+    // threetree.print();
   } catch (...) {
     cout << "Caught exception!" << endl;
   }

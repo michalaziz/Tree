@@ -3,14 +3,19 @@
 using namespace std;
 using namespace ariel;
 
+//deafult ctor
 Tree::Tree()
 {
     Troot = NULL;
 }
+
+//dtor
 Tree::~Tree()
 {
     Tree::removethetree(Troot);
 }
+
+//delete ol the nodes in the tree
 void Tree::removethetree(node *root)
 {
     if (root != NULL)
@@ -20,6 +25,8 @@ void Tree::removethetree(node *root)
         delete root;
     }
 }
+
+//ctor
 Tree::Tree(node *t)
 {
     Troot->key = t->key;
@@ -27,18 +34,19 @@ Tree::Tree(node *t)
     Troot->right = t->right;
 }
 
-node *Tree::newNode(int data)
+//reset a new node
+node *Tree::newNode(int key)
 {
     node *temp = new node;
-    temp->key = data;
-    temp->left = NULL;
-    temp->right = NULL;
+    temp->key = key;
+    temp->left = temp->right = NULL;
     return temp;
 }
 
+//shell function of insert
 node *Tree::insert(node *temp, int i)
 {
-    if (temp == NULL)
+    if (temp == NULL) //the tree is empty
         return newNode(i);
 
     if (i < temp->key)
@@ -47,16 +55,17 @@ node *Tree::insert(node *temp, int i)
         temp->right = insert(temp->right, i);
     return temp;
 }
-
+// insert a new node to the tree
 void Tree::insert(int i)
 {
-    if (contains(i) == true)
+    if (contains(i) == true) //trying to insert a nmber that allredy exist
     {
         throw std::invalid_argument("allready exist");
     }
     Troot = insert(Troot, i);
 }
 
+//find the node with the minimum key in the tree
 node *Tree::min(node *t)
 {
     if (t == NULL)
@@ -134,7 +143,6 @@ node *Tree::min(node *t)
 // }
 node *Tree::remove(node *root, int i)
 {
-    node *temp;
     if (root == NULL)
     {
         return root;
@@ -142,31 +150,46 @@ node *Tree::remove(node *root, int i)
     if (root->key > i)
     {
         root->left = remove(root->left, i);
+        return root;
     }
     else if (root->key < i)
     {
         root->right = remove(root->right, i);
+        return root;
+    }
+    if (root->left == NULL)
+    {
+        node *temp = root->right;
+        delete root;
+        return temp;
+    }
+    else if (root->right == NULL)
+    {
+        node *temp = root->left;
+        delete root;
+        return temp;
     }
     else
     {
-        if (root->left == NULL)
+        node *sParent = root->right;
+        node *s = root->right;
+        while (s->left != NULL)
         {
-            temp = root->right;
-            delete root;
-            return temp;
+            sParent = s;
+            s = s->left;
         }
-        else if (root->right == NULL)
-        {
-            temp = root->left;
-            delete root;
-            return temp;
-        }
-        temp = min(root->right);
-        root->key = (temp->key);
-        root->right = remove(root->right, temp->key);
+        sParent->left = s->right;
+        root->key=s->key;
+        delete s;
+        return root;
     }
-    return root;
 }
+//         temp = min(root->right);
+//         root->key = (temp->key);
+//         root->right = remove(root->right, temp->key);
+//     }
+//     return root;
+// }
 
 // if (root == NULL)
 //     return root;

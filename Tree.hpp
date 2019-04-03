@@ -4,39 +4,39 @@ namespace ariel
 {
 struct node
 {
-    int key;
-    node *left;
-    node *right;
+  int key;
+  node *left;
+  node *right;
 };
 
 class Tree
 {
-  private:
-    node *Troot;
-void removethetree(node *root);
-  public:
-    Tree();
-    ~Tree();
-    Tree(node *);
-    node * newNode(int data);
-    node*insert(node*,int);
-    void insert(int);
-    node*find(node*,int);
-    node*min(node*);
-    node*remove(node*,int);
-    void remove(int);
-    int size(node *);
-    int size();
-    bool pre_order(node *,int);
-    bool contains(int);
-    int root();
-    int parent(int);
-    int parent(node*, int);
-    int left(int);
-    int right(int);
-    void print (node*);
-    void print();
-   
+private:
+  node *Troot;
+  void removethetree(node *root);
+  node *newNode(int data);
+  node *find(node *, int);
+  node *min(node *);
+  node *insert(node *, int);
+  node *remove(node *, int);
+  int size(node *);
+  bool pre_order(node *, int);
+  int parent(node *, int);
+  void print(node *);
+
+public:
+  Tree();
+  ~Tree();
+  Tree(node *);
+  void insert(int);
+  void remove(int);
+  int size();
+  bool contains(int);
+  int root();
+  int parent(int);
+  int left(int);
+  int right(int);
+  void print();
 };
 
 } // namespace ariel
