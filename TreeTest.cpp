@@ -108,6 +108,7 @@ int main()
         .CHECK_EQUAL(tree2.parent(33), 66)
         .CHECK_EQUAL(tree2.parent(18), 16)
         .CHECK_OK(tree2.remove(33))
+        
         .CHECK_EQUAL(tree2.contains(33), false)
         .CHECK_THROWS(tree2.right(66))
 
