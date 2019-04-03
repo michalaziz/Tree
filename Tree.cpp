@@ -122,6 +122,7 @@ void Tree::remove(int i)
     }
     if (temp == NULL)
     {
+        delete Troot;
         Troot = NULL;
     }
 }
