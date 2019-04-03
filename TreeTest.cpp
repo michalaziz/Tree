@@ -80,26 +80,21 @@ int main() {
         .CHECK_OK    (threetree.print())
         .print();
 //randomali
-        // for(int i =0; i<5; i++) {
-        //         tc.CHECK_EQUAL (randomali.contains(random[i]),true);
-        // }
-        // tc.CHECK_EQUAL (randomali.size(),5);
-        // int j=5;
-        // for(int i =0; i<5; i++) {
-        //     if (randomali.contains(random[i]))
-        //     {
-        //         cout<<"in if"<<endl;
-        //         cout<<randomali.size()<<endl;
-        //         tc.CHECK_EQUAL(randomali.size(), j);
-        //         cout<<randomali.size()<<"a"<<endl;
-        //         j--;
-        //         cout<<randomali.size()<<"b"<<endl;
-        //         tc.CHECK_OK(randomali.remove(random[i]));
-        //         cout<<randomali.size()<<"c"<<endl;
-        //         }else{
-        //                 tc.CHECK_THROWS(randomali.remove(random[i]));
-        //         }
-        // }
+        for(int i =0; i<5; i++) {
+                tc.CHECK_EQUAL (randomali.contains(random[i]),true);
+        }
+        tc.CHECK_EQUAL (randomali.size(),5);
+        int j=5;
+        for(int i =0; i<5; i++) {
+            if (randomali.contains(random[i]))
+            {
+                tc.CHECK_EQUAL(randomali.size(), j);
+                j--;
+                tc.CHECK_OK(randomali.remove(random[i]));
+                }else{
+                        tc.CHECK_THROWS(randomali.remove(random[i]));
+                }
+        }
 
 // //ourtree
         tc.CHECK_EQUAL (ourtree.parent(3), 4)

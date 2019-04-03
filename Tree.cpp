@@ -27,12 +27,12 @@ void Tree::removethetree(node *root)
 }
 
 //ctor
-Tree::Tree(node *t)
-{
-    Troot->key = t->key;
-    Troot->left = t->left;
-    Troot->right = t->right;
-}
+// Tree::Tree(node *t)
+// {
+//     Troot->key = t->key;
+//     Troot->left = t->left;
+//     Troot->right = t->right;
+// }
 
 //reset a new node
 node *Tree::newNode(int key)
@@ -49,7 +49,7 @@ node *Tree::insert(node *temp, int i)
     if (temp == NULL) //the tree is empty
         return newNode(i);
 
-    if (i < temp->key)
+    else if (i <=temp->key)
         temp->left = insert(temp->left, i);
     else if (i > temp->key)
         temp->right = insert(temp->right, i);
@@ -76,214 +76,34 @@ node *Tree::min(node *t)
         return min(t->left);
 }
 
-// node *Tree::remove(node *root, int key)
-// {
-//     // base case
-//     if (root == NULL)
-//         return root;
-
-//     // If the key to be deleted is smaller than the root's key,
-//     // then it lies in left subtree
-//     if (key < root->key & root->left != NULL)
-//         root->left = Tree::remove(root->left, key);
-
-//     // If the key to be deleted is greater than the root's key,
-//     // then it lies in right subtree
-//     else if (key > root->key & root->right != NULL)
-//         root->right = Tree::remove(root->right, key);
-
-//     // if key is same as root's key, then This is the node
-//     // to be deleted
-//     else
-//     {
-//         if (root->right == NULL & root->left == NULL)
-//         {
-//             delete (root);
-//             return NULL;
-//         }
-//         // node with only one child or no child
-//         if (root->left == NULL & root->right != NULL)
-//         {
-//             node *temp = root->right;
-//             delete (root);
-//             return temp;
-//         }
-//         else if (root->right == NULL & root->left != NULL)
-//         {
-//             node *temp = root->left;
-//             delete (root);
-//             return temp;
-//         }
-
-//         // node with two children: Get the inorder successor (smallest
-//         // in the right subtree)
-//         node *temp = min(root->right);
-
-//         // Copy the inorder successor's content to this node
-//         root->key = temp->key;
-
-//         // Delete the inorder successor
-//         root->right = Tree::remove(root->right, temp->key);
-//     }
-//     return root;
-// }
-
-// void Tree::remove(int x)
-// {
-//     if ((contains(x) == false) || (Troot == NULL))
-//     {
-//         throw ::invalid_argument("Is Not GOOD");
-//         return;
-//     }
-//     else
-//     {
-//         cout<<"got else";
-//         Tree::remove(Troot, x);
-//     }
-// }
 node *Tree::remove(node *root, int i)
 {
-        if (root == NULL)
-    {
+    if (root == NULL)
         return root;
-    }
-    if (root->key > i)
-    {
+    if (i < root->key)
         root->left = remove(root->left, i);
-        return root;
-    }
-    else if (root->key < i)
-    {
+    else if (i > root->key)
         root->right = remove(root->right, i);
-        return root;
-    }
-    if (root->left == NULL)
-    {
-        node *temp = root->right;
-        delete root;
-        return temp;
-    }
-    else if (root->right == NULL)
-    {
-        node *temp = root->left;
-        delete root;
-        return temp;
-    }
     else
     {
-        node *sParent = root->right;
-        node *s = root->right;
-        while (s->left != NULL)
+        if (root->left == NULL)
         {
-            sParent = s;
-            s = s->left;
+            node *temp = root->right;
+            delete root;
+            return temp;
         }
-        sParent->left = s->right;
-        root->key=s->key;
-        delete s;
-        return root;
+        else if (root->right == NULL)
+        {
+            node *temp = root->left;
+            delete root;
+            return temp;
+        }
+        node *temp = min(root->right);
+        root->key = temp->key;
+        root->right = remove(root->right, temp->key);
     }
+    return root;
 }
-
-
-
-
-
-
-
-
-
-//     if (root == NULL)
-//     return root;
-
-// if (i < root->key && root->left != NULL)
-//     root->left = remove(root->left, i);
-
-// else if (i > root->key && root->right != NULL)
-//     root->right = remove(root->right, i);
-
-// else
-// {
-//     if (root->left == NULL && root->left == NULL)
-//     {
-//         node *temp = root->right;
-//         delete (root);
-//         return NULL;
-//     }
-//     if (root->left == NULL & root->right != NULL)
-//     {
-//         node *temp = root->right;
-//         delete (root);
-//         return temp;
-//     }
-//     else if (root->right == NULL && root->left != NULL)
-//     {
-//         node *temp = root->left;
-//         delete (root);
-//         return temp;
-//     }
-//     node *temp = min(root->right);
-//     root->key = temp->key;
-//     root->right = remove(root->right, temp->key);
-// }
-// return root;
-// }
-
-
-
-
-
-
-
-//     if (root == NULL)
-//     {
-//         return root;
-//     }
-//     if (root->key > i)
-//     {
-//         root->left = remove(root->left, i);
-//         return root;
-//     }
-//     else if (root->key < i)
-//     {
-//         root->right = remove(root->right, i);
-//         return root;
-//     }
-//     if (root->left == NULL)
-//     {
-//         node *temp = root->right;
-//         delete root;
-//         return temp;
-//     }
-//     else if (root->right == NULL)
-//     {
-//         node *temp = root->left;
-//         delete root;
-//         return temp;
-//     }
-//     else
-//     {
-//         node *sParent = root->right;
-//         node *s = root->right;
-//         while (s->left != NULL)
-//         {
-//             sParent = s;
-//             s = s->left;
-//         }
-//         sParent->left = s->right;
-//         root->key=s->key;
-//         delete s;
-//         return root;
-//     }
-// }
-///////////////////////////////////////
-//         temp = min(root->right);
-//         root->key = (temp->key);
-//         root->right = remove(root->right, temp->key);
-//     }
-//     return root;
-// }
-
 
 void Tree::remove(int i)
 {
@@ -340,21 +160,6 @@ int Tree::parent(node *root, int i)
         return root->key;
     else
         return parent(root->right, i);
-
-    // while (root->key != i)
-    // {
-    //     if (root->left->key == i || root->right->key == i)
-    //         return root->key;
-    //     if (i < root->left->key)
-    //         root = root->left;
-    //     else if (i > root->left->key)
-    //         root = root->left;
-    //     if (i > root->right->key)
-    //         root = root->right;
-    //     else if (i < root->right->key)
-    //         root = root->right;
-    // }
-    // return root->key;
 }
 
 int Tree::parent(int i)
