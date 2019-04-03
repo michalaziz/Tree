@@ -143,7 +143,7 @@ node *Tree::min(node *t)
 // }
 node *Tree::remove(node *root, int i)
 {
-    if (root == NULL)
+        if (root == NULL)
     {
         return root;
     }
@@ -184,14 +184,16 @@ node *Tree::remove(node *root, int i)
         return root;
     }
 }
-//         temp = min(root->right);
-//         root->key = (temp->key);
-//         root->right = remove(root->right, temp->key);
-//     }
-//     return root;
-// }
 
-// if (root == NULL)
+
+
+
+
+
+
+
+
+//     if (root == NULL)
 //     return root;
 
 // if (i < root->key && root->left != NULL)
@@ -226,6 +228,63 @@ node *Tree::remove(node *root, int i)
 // }
 // return root;
 // }
+
+
+
+
+
+
+
+//     if (root == NULL)
+//     {
+//         return root;
+//     }
+//     if (root->key > i)
+//     {
+//         root->left = remove(root->left, i);
+//         return root;
+//     }
+//     else if (root->key < i)
+//     {
+//         root->right = remove(root->right, i);
+//         return root;
+//     }
+//     if (root->left == NULL)
+//     {
+//         node *temp = root->right;
+//         delete root;
+//         return temp;
+//     }
+//     else if (root->right == NULL)
+//     {
+//         node *temp = root->left;
+//         delete root;
+//         return temp;
+//     }
+//     else
+//     {
+//         node *sParent = root->right;
+//         node *s = root->right;
+//         while (s->left != NULL)
+//         {
+//             sParent = s;
+//             s = s->left;
+//         }
+//         sParent->left = s->right;
+//         root->key=s->key;
+//         delete s;
+//         return root;
+//     }
+// }
+///////////////////////////////////////
+//         temp = min(root->right);
+//         root->key = (temp->key);
+//         root->right = remove(root->right, temp->key);
+//     }
+//     return root;
+// }
+
+
 void Tree::remove(int i)
 {
     node *removeNode = find(Troot, i);
