@@ -122,7 +122,6 @@ void Tree::remove(int i)
     }
     if (temp == NULL)
     {
-        delete Troot;
         Troot = NULL;
     }
 }
@@ -184,9 +183,12 @@ bool Tree::contains(int i)
 
 int Tree::root()
 {
+    if(Troot==NULL){
+        throw std::invalid_argument("error finding parent"); 
+    }else{
     return Troot->key;
 }
-
+}
 int Tree::left(int i)
 {
     node *temp = find(Troot, i);
