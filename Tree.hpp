@@ -7,7 +7,6 @@ struct node
     int key;
     node *left;
     node *right;
-    node *parent;
 };
 
 class Tree
@@ -32,6 +31,7 @@ void removethetree(node *root);
     bool contains(int);
     int root();
     int parent(int);
+    int parent(node*, int);
     int left(int);
     int right(int);
     void print (node*);

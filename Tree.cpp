@@ -25,7 +25,6 @@ Tree::Tree(node *t)
     Troot->key = t->key;
     Troot->left = t->left;
     Troot->right = t->right;
-    Troot->parent = t->parent;
 }
 
 node *Tree::newNode(int data)
@@ -34,46 +33,38 @@ node *Tree::newNode(int data)
     temp->key = data;
     temp->left = NULL;
     temp->right = NULL;
-    temp->parent = NULL;
     return temp;
 }
 
 node *Tree::insert(node *temp, int i)
 {
-    if (temp == NULL) //the tree is empty
-    {
+    if (temp == NULL)
         return newNode(i);
-    }
-    else if (temp->key == i)
-    {
-        throw invalid_argument("error: the number is allready exist");
-    }
+
     if (i < temp->key)
-    {
-        node *l = insert(temp->left, i);
-        temp->left = l;
-        l->parent = temp;
-    }
+        temp->left = insert(temp->left, i);
     else if (i > temp->key)
-    {
-        node *r = insert(temp->right, i);
-        temp->right = r;
-        r->parent = temp;
-    }
+        temp->right = insert(temp->right, i);
     return temp;
 }
 
 void Tree::insert(int i)
 {
+    if (contains(i) == true)
+    {
+        throw std::invalid_argument("allready exist");
+    }
     Troot = insert(Troot, i);
 }
 
 node *Tree::min(node *t)
 {
-    node *temp = t;
-    while (temp->left != NULL)
-        temp = temp->left;
-    return temp;
+    if (t == NULL)
+        return NULL;
+    else if (t->left == NULL)
+        return t;
+    else
+        return min(t->left);
 }
 
 // node *Tree::remove(node *root, int key)
@@ -143,61 +134,94 @@ node *Tree::min(node *t)
 // }
 node *Tree::remove(node *root, int i)
 {
+    node *temp;
     if (root == NULL)
+    {
         return root;
-
-    if (i < root->key && root->left!=NULL)
+    }
+    if (root->key > i)
+    {
         root->left = remove(root->left, i);
-
-
-    else if (i > root->key && root->right!=NULL)
+    }
+    else if (root->key < i)
+    {
         root->right = remove(root->right, i);
-
+    }
     else
     {
-        if (root->left == NULL && root->left==NULL)
+        if (root->left == NULL)
         {
-            node *temp = root->right;
-            delete (root);
-            return NULL;
-        }
-        if(root->left == NULL&root->right != NULL)
-        {
-            node *temp = root->right;
-            delete(root);
+            temp = root->right;
+            delete root;
             return temp;
         }
-        else if (root->right == NULL && root->left!=NULL)
+        else if (root->right == NULL)
         {
-            node *temp = root->left;
-            delete (root);
+            temp = root->left;
+            delete root;
             return temp;
         }
-        node *temp = min(root->right);
-        root->key = temp->key;
+        temp = min(root->right);
+        root->key = (temp->key);
         root->right = remove(root->right, temp->key);
     }
     return root;
 }
+
+// if (root == NULL)
+//     return root;
+
+// if (i < root->key && root->left != NULL)
+//     root->left = remove(root->left, i);
+
+// else if (i > root->key && root->right != NULL)
+//     root->right = remove(root->right, i);
+
+// else
+// {
+//     if (root->left == NULL && root->left == NULL)
+//     {
+//         node *temp = root->right;
+//         delete (root);
+//         return NULL;
+//     }
+//     if (root->left == NULL & root->right != NULL)
+//     {
+//         node *temp = root->right;
+//         delete (root);
+//         return temp;
+//     }
+//     else if (root->right == NULL && root->left != NULL)
+//     {
+//         node *temp = root->left;
+//         delete (root);
+//         return temp;
+//     }
+//     node *temp = min(root->right);
+//     root->key = temp->key;
+//     root->right = remove(root->right, temp->key);
+// }
+// return root;
+// }
 void Tree::remove(int i)
 {
-   node *removeNode = find(Troot, i);
+    node *removeNode = find(Troot, i);
 
-        if (removeNode == NULL)
-        {
-                throw std::invalid_argument("The data is not in the tree!!");
-        }
+    if (removeNode == NULL)
+    {
+        throw std::invalid_argument("not exist");
+    }
 
-        node *temp = remove(Troot,i);
+    node *temp = remove(Troot, i);
 
-        if (removeNode == Troot)
-        {
-                Troot = temp;
-        }
-        if (temp == NULL)
-        {
-                Troot = NULL;
-}
+    if (removeNode == Troot)
+    {
+        Troot = temp;
+    }
+    if (temp == NULL)
+    {
+        Troot = NULL;
+    }
 }
 
 int Tree::size(node *t)
@@ -223,6 +247,43 @@ node *Tree::find(node *root, int i)
     return find(root->left, i);
 }
 
+int Tree::parent(node *root, int i)
+{
+    if (i < root->key)
+        if (root->left->key == i)
+            return root->key;
+        else
+            return parent(root->left, i);
+    else if (root->right->key == i)
+        return root->key;
+    else
+        return parent(root->right, i);
+
+    // while (root->key != i)
+    // {
+    //     if (root->left->key == i || root->right->key == i)
+    //         return root->key;
+    //     if (i < root->left->key)
+    //         root = root->left;
+    //     else if (i > root->left->key)
+    //         root = root->left;
+    //     if (i > root->right->key)
+    //         root = root->right;
+    //     else if (i < root->right->key)
+    //         root = root->right;
+    // }
+    // return root->key;
+}
+
+int Tree::parent(int i)
+{
+    if (contains(i) == false || Troot->key == i || Troot == NULL)
+    {
+        throw std::invalid_argument("error finding parent");
+    }
+    return parent(Troot, i);
+}
+
 bool Tree::contains(int i)
 {
     if (find(Troot, i) == NULL)
@@ -238,41 +299,23 @@ int Tree::root()
     return Troot->key;
 }
 
-int Tree::parent(int i)
-{
-    node *temp = find(Troot, i);
-    if (temp->key == Troot->key || temp == NULL)
-    {
-        throw ::invalid_argument("Error:no parent");
-        return -1;
-    }
-    else
-    {
-        temp = temp->parent;
-        return temp->key;
-    }
-}
-
 int Tree::left(int i)
 {
     node *temp = find(Troot, i);
-    if (temp == NULL)
+    if (temp == NULL || temp->left == NULL)
     {
         throw ::invalid_argument("Error:no left");
-        return -1;
     }
-    if (temp->key == i)
-        temp = temp->left;
+    temp = temp->left;
     return temp->key;
 }
 
 int Tree::right(int i)
 {
     node *temp = find(Troot, i);
-    if (temp == NULL)
+    if (temp == NULL || temp->right == NULL)
     {
         throw ::invalid_argument("Error:no right");
-        return -1;
     }
     temp = temp->right;
     return temp->key;
